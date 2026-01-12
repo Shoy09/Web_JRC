@@ -15,14 +15,9 @@ export class MenuComponent {
       icon: 'das.svg',
       subItems: [
         { title: 'Perforación Taladros Largos', path: 'taladro-largo-grafico' },
-        { title: 'Perforación Horizontal', path: 'taladro-horizontal-grafico' },
-        { title: 'Sostenimiento', path: 'sostenimiento' },
-        //{ title: 'Explosivos', path: 'explosivos-graficos' },
-        //{ title: 'KPI P&V', path: 'medicion-horizontal' },
-        { title: 'Factores', path: 'factores' },
-        //{ title: 'autocad', path: 'autocad' },
-        { title: 'Gestion de ciclo - Detalle', path: 'gestion-ciclo-Detalle' },
-        { title: 'Gestion de ciclo - Resumen', path: 'gestion-ciclo-resumen' },
+        { title: 'Servicio Lanzador', path: 'servicio-lanzador' },
+        { title: 'Servicio Mixer', path: 'servicio-mixer' },
+        { title: 'Acarreo', path: 'servicio-volquetes' },
       ],
     },
     {
@@ -32,7 +27,6 @@ export class MenuComponent {
         { title: 'Plan de Avance', path: 'plan-avance' },
         { title: 'Plan de Metraje', path: 'plan-metraje' },
         { title: 'Plan de Producción', path: 'plan-produccion' },
-        { title: 'Plan de Mantenimiento', path: 'plan-mantenimiento' },
 
       ],
     },
@@ -40,15 +34,8 @@ export class MenuComponent {
       title: 'Carga de Datos',
       icon: 'data.svg',
       subItems: [
-        { title: 'Explosivos', path: 'explosivos' },
-        { title: 'Toneladas', path: 'toneladas' },
         { title: 'Estados', path: 'estados' },
         { title: 'Crear Data', path: 'crear-data' },
-        
-        { title: 'Metas', path: 'metas' },
-        { title: 'Semanas', path: 'semana-personali' },
-        { title: 'PDF', path: 'pdf' },
-        { title: 'Aceros', path: 'acero-stock' },
 
       ],
     },
@@ -60,13 +47,7 @@ export class MenuComponent {
         { title: 'Perfil', path: 'perfil' },
       ],
     },
-    // {
-    //   title: 'Gráficas',
-    //   icon: 'rol.svg',
-    //   subItems: [
-    //     { title: 'Gráficos', path: 'graficos' },
-    //   ],
-    // },
+
   ];
 
 
@@ -76,13 +57,13 @@ export class MenuComponent {
 
   constructor(private router: Router) {
     if (this.router.url === '/' || this.router.url === '/Dashboard') {
-      this.router.navigate(['/Dashboard/taladro-largo-grafico']);
+      this.router.navigate(['/Dashboard/crear-data']);
     }
   }
 
   AbrirCerrar(index: number, menu: any) {
     if (menu.title === 'Home') {
-      this.router.navigate(['/Dashboard/taladro-largo-grafico']); // Redirige directamente
+      this.router.navigate(['/Dashboard/crear-data']); // Redirige directamente
     } else if (this.menuColapsado) {
       // Si el menú está colapsado, redirige a la primera subruta de ese menú
       if (menu.subItems && menu.subItems.length > 0) {

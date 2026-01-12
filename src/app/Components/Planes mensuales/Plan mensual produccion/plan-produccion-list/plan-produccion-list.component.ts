@@ -18,10 +18,7 @@ import { LoadingDialogComponent } from '../../../Reutilizables/loading-dialog/lo
 import { EditPlanProduccionComponent } from '../edit-plan-produccion/edit-plan-produccion.component';
 import { CreatePlanProduccionComponent } from '../create-plan-produccion/create-plan-produccion.component';
 import { DialogDiferenciaPlanRealidadComponent } from '../dialog-diferencia-plan-realidad/dialog-diferencia-plan-realidad.component';
-import { Explosivo } from '../../../../models/Explosivo';
-import { ExplosivoService } from '../../../../services/explosivo.service';
-import { ToneladasService } from '../../../../services/toneladas.service';
-import { Tonelada } from '../../../../models/tonelada';
+
 
 @Component({
   selector: 'app-plan-produccion-list',
@@ -41,18 +38,14 @@ export class PlanProduccionListComponent implements OnInit {
     'mes', 'semana', 'mina', 'zona', 
     'tipo_mineral', 'labor', 'acciones'
   ];
-  explosivos: Explosivo[] = [];
   dataSource = new MatTableDataSource<PlanProduccion>();
-toneladas: Tonelada[] = []; 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private _toastr: ToastrService,
-    private explosivoService: ExplosivoService,
     private planProduccionService: PlanProduccionService,
     public dialog: MatDialog,
     private fechasPlanMensualService: FechasPlanMensualService,
-    private toneladasService: ToneladasService 
   ) {}
   errorMessage: string = '';
   anio: number | undefined;
@@ -60,34 +53,9 @@ toneladas: Tonelada[] = [];
 
   ngOnInit(): void {
     this.obtenerUltimaFecha();
-    this.obtenerExplosivos();
-    this.obtenerToneladas();
   }
 
-  obtenerToneladas() {
-  this.toneladasService.getToneladas().subscribe({
-    next: (data) => {
-      this.toneladas = data;
-      console.log('✅ Toneladas recibidas:', this.toneladas);
-    },
-    error: (err) => {
-      console.error('🚫 Error al obtener toneladas:', err);
-      this.errorMessage = 'Error al cargar toneladas.';
-    }
-  });
-}
 
-  obtenerExplosivos() {
-  this.explosivoService.getExplosivos().subscribe({
-    next: (data) => {
-      this.explosivos = data;
-      console.log('✅ Explosivos recibidos:', this.explosivos);
-    },
-    error: (err) => {
-      console.error('🚫 Error al obtener explosivos:', err);
-    }
-  });
-}
 
   obtenerUltimaFecha(): void {
     this.fechasPlanMensualService.getUltimaFecha().subscribe(
@@ -367,8 +335,6 @@ verDiferencias(plan: PlanProduccion): void {
         labor: plan.labor,
         ala: plan.ala,
         cut_off_2: plan.cut_off_2, 
-        explosivos: this.explosivos,
-        toneladas: this.toneladas,
         mes: this.mes,      
       anio: this.anio    
       }

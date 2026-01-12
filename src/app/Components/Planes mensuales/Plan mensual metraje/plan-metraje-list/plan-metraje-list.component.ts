@@ -22,8 +22,6 @@ import { LoadingDialogComponent } from '../../../Reutilizables/loading-dialog/lo
 import { EditPlanMetrajeComponent } from '../edit-plan-metraje/edit-plan-metraje.component';
 import { CreatePlanMetrajeComponent } from '../create-plan-metraje/create-plan-metraje.component';
 import { DialogDiferenciaPlanRealidadComponent } from '../dialog-diferencia-plan-realidad/dialog-diferencia-plan-realidad.component';
-import { ExplosivoService } from '../../../../services/explosivo.service';
-import { Explosivo } from '../../../../models/Explosivo';
 
 
 
@@ -51,10 +49,8 @@ export class PlanMetrajeListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-explosivos: Explosivo[] = [];
 
   constructor(
-    private explosivoService: ExplosivoService,
     private _toastr: ToastrService,
     private planMetrajeService: PlanMetrajeService,
     public dialog: MatDialog,
@@ -65,20 +61,8 @@ explosivos: Explosivo[] = [];
   mes: string | undefined;
   ngOnInit(): void {
     this.obtenerUltimaFecha();
-    this.obtenerExplosivos();
   }
 
-   obtenerExplosivos() {
-  this.explosivoService.getExplosivos().subscribe({
-    next: (data) => {
-      this.explosivos = data;
-      console.log('✅ Explosivos recibidos:', this.explosivos);
-    },
-    error: (err) => {
-      console.error('🚫 Error al obtener explosivos:', err);
-    }
-  });
-}
 
   abrirDialogoCrear(): void {
     const dialogRef = this.dialog.open(CreatePlanMetrajeComponent, {
@@ -330,7 +314,6 @@ editarPlan(plan: PlanMetraje): void {
         tipo_labor: plan.tipo_labor,
         labor: plan.labor,
         ala: plan.ala,
-        explosivos: this.explosivos 
       }
     });
   }

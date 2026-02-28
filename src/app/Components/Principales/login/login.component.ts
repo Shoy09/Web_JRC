@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../services/auth-service.service';
+import { UsuarioService } from '../../../services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent {
   constructor(
     private readonly router: Router,
     private authService: AuthService,
-    private _toastr: ToastrService // Inyecta ToastrService
+    private _toastr: ToastrService, // Inyecta ToastrService
+    private usuarioService: UsuarioService
   ) {}
 
   togglePassword() {
@@ -29,30 +31,49 @@ export class LoginComponent {
   }
 
   login() {
-    if (!this.codigo_dni || !this.password) {
-      this.errorMessage = 'Por favor, ingresa todos los campos.';
-      this._toastr.warning(this.errorMessage, 'Advertencia'); // Muestra una notificación de advertencia
-      return;
-    }
-
-    this._toastr.info('Iniciando sesión...', 'Por favor espera'); // Muestra una notificación de espera
-
-    this.authService.login(this.codigo_dni, this.password).subscribe(
-      (response) => {
-        if (response.token) {
-          this.authService.setToken(response.token); // Guarda el token en localStorage
-          this.router.navigate(['/Dashboard']); // Redirige al dashboard
-          this._toastr.success('Sesión iniciada con éxito', 'Bienvenido'); // Muestra una notificación de éxito
-        } else {
-          this.errorMessage = 'Error en la autenticación. Token no recibido.';
-          this._toastr.error(this.errorMessage, 'Error'); // Muestra una notificación de error
-        }
-      },
-      (error) => {
-        console.error('Error en el login', error);
-        this.errorMessage = 'Credenciales incorrectas o problema con el servidor.';
-        this._toastr.error(this.errorMessage, 'Error de autenticación'); // Muestra una notificación de error
-      }
-    );
+  if (!this.codigo_dni || !this.password) {
+    this._toastr.warning('Por favor, ingresa todos los campos.', 'Advertencia');
+    return;
   }
+
+  this._toastr.info('Iniciando sesión...', 'Por favor espera');
+
+  this.authService.login(this.codigo_dni, this.password).subscribe(
+    (response) => {
+
+      if (response.token) {
+
+        // 1️⃣ Guardamos token
+        this.authService.setToken(response.token);
+
+        // 2️⃣ Ahora llamamos al perfil
+        this.usuarioService.obtenerPerfil().subscribe({
+          next: (usuario) => {
+
+            // 🔥 Construir nombre completo
+const nombreCompleto = `${usuario.nombres || ''} ${usuario.apellidos || ''}`.trim();
+
+// Guardar datos en localStorage
+localStorage.setItem('rol', usuario.rol || '');
+localStorage.setItem('nombre_completo', nombreCompleto);
+
+            this._toastr.success('Sesión iniciada con éxito', 'Bienvenido');
+
+            // 4️⃣ Recién ahora navegamos
+            this.router.navigate(['/Dashboard']);
+          },
+          error: (err) => {
+            console.error('Error obteniendo perfil', err);
+          }
+        });
+
+      } else {
+        this._toastr.error('Token no recibido', 'Error');
+      }
+    },
+    () => {
+      this._toastr.error('Credenciales incorrectas', 'Error');
+    }
+  );
+}
 }

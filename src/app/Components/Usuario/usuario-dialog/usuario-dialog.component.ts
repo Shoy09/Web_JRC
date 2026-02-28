@@ -29,6 +29,15 @@ export class UsuarioDialogComponent {
     'PERFORACIÓN HORIZONTAL',
     'PERFORACIÓN TALADROS LARGOS'
   ];
+  cargos: string[] = [
+  'JEFE GUARDIA',
+  'Op. Robot',
+  'Op. Bolter',
+  'Op. Mixer',
+  'Ayudante'
+];
+
+
   constructor(
     private fb: FormBuilder,
     private usuarioService: UsuarioService,

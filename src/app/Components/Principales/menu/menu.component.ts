@@ -4,11 +4,16 @@ import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
+  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',
 })
 export class MenuComponent {
+
+  rolUsuario: string = '';
+
+  // 🔥 MENÚ ORIGINAL (con nuevas rutas al final)
   menus = [
     {
       title: 'Dashboard',
@@ -18,6 +23,21 @@ export class MenuComponent {
         { title: 'Servicio Lanzador', path: 'servicio-lanzador' },
         { title: 'Servicio Mixer', path: 'servicio-mixer' },
         { title: 'Acarreo', path: 'servicio-volquetes' },
+        { title: "Sostenimiento", path:'sostenimiento'},
+
+        // 🔐 NUEVAS RUTAS CON ROLES
+        {
+          title: 'Reporte Gerencial',
+          path: 'sostenimiento-1',
+        },
+        {
+          title: 'Panel Supervisor',
+          path: 'sostenimiento-2',
+        },
+        {
+          title: 'Control Especial',
+          path: 'sostenimiento-3',
+        }
       ],
     },
     {
@@ -36,6 +56,7 @@ export class MenuComponent {
       subItems: [
         { title: 'Estados', path: 'estados' },
         { title: 'Crear Data', path: 'crear-data' },
+        { title: 'Data Sostenimiento', path: 'data-sostenimiento' },
 
       ],
     },
@@ -50,24 +71,54 @@ export class MenuComponent {
 
   ];
 
-
   menuOpenIndex: number | null = null;
   selectedSubItemIndex: number | null = null;
   selectedSubItem: string | null = null;
 
+  mostrarCerrarSesion = false;
+  menuColapsado = false;
+
   constructor(private router: Router) {
+
+    // 🔥 Leer rol guardado en login
+    this.rolUsuario = localStorage.getItem('rol') || '';
+
+    // 🔥 Filtrar según rol
+    this.filtrarMenusPorRol();
+
     if (this.router.url === '/' || this.router.url === '/Dashboard') {
       this.router.navigate(['/Dashboard/crear-data']);
     }
   }
 
+  // 🔐 FILTRO POR ROL (solo afecta subItems con propiedad roles)
+  filtrarMenusPorRol() {
+
+    this.menus = this.menus.map(menu => {
+
+      const subItemsFiltrados = menu.subItems.filter((subItem: any) => {
+
+        // Si NO tiene roles → visible para todos
+        if (!subItem.roles) return true;
+
+        // Si tiene roles → validar
+        return subItem.roles.includes(this.rolUsuario);
+      });
+
+      return {
+        ...menu,
+        subItems: subItemsFiltrados
+      };
+
+    });
+  }
+
   AbrirCerrar(index: number, menu: any) {
     if (menu.title === 'Home') {
-      this.router.navigate(['/Dashboard/crear-data']); // Redirige directamente
+      this.router.navigate(['/Dashboard/crear-data']);
     } else if (this.menuColapsado) {
-      // Si el menú está colapsado, redirige a la primera subruta de ese menú
       if (menu.subItems && menu.subItems.length > 0) {
-        const ruta =`/Dashboard/${menu.subItems[0].path}`;
+        const ruta = `/Dashboard/${menu.subItems[0].path}`;
         this.router.navigate([ruta]);
         this.selectedSubItemIndex = 0;
         this.selectedSubItem = menu.subItems[0].path;
@@ -84,15 +135,15 @@ export class MenuComponent {
     const ruta = `/Dashboard/${subItem.path}`;
     this.router.navigate([ruta]);
   }
+
   convertirRuta(subItem: string): string {
-    return subItem.toLowerCase().replace(/ /g, '-'); // Convierte espacios a guiones
+    return subItem.toLowerCase().replace(/ /g, '-');
   }
-mostrarCerrarSesion = false;
-  menuColapsado = false;
 
   toggleMenu() {
     this.menuColapsado = !this.menuColapsado;
   }
+
   toggleCerrarSesion() {
     this.mostrarCerrarSesion = !this.mostrarCerrarSesion;
   }

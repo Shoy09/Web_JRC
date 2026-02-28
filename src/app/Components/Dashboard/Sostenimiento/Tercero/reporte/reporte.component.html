@@ -1,0 +1,204 @@
+<div class="main-container">
+  <mat-card class="form-card">
+
+    <!-- Header -->
+    <div class="header-reporte">
+      <h1 class="titulo-principal">REPORTE DIARIO DE SOSTENIMIENTO DE LABOR</h1>
+    </div>
+
+    <mat-card-content [formGroup]="form">
+
+      <!-- Sección 1: Información General -->
+      <div class="seccion-grid seccion-4-columnas">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Fecha</mat-label>
+    <input matInput formControlName="fecha" placeholder="YYYY-MM-DD">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Turno</mat-label>
+    <input matInput formControlName="turno">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Guardia</mat-label>
+    <input matInput formControlName="guardia">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Nivel</mat-label>
+    <input matInput formControlName="nivel">
+  </mat-form-field>
+
+</div>
+
+      <!-- Sección 2: Ubicación Labor -->
+      <div class="seccion-grid seccion-4-columnas">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Block</mat-label>
+    <input matInput formControlName="block">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Roca</mat-label>
+    <input matInput formControlName="roca">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Labor</mat-label>
+    <input matInput formControlName="labor">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Empresa</mat-label>
+    <input matInput formControlName="empresa">
+  </mat-form-field>
+
+</div>
+      <!-- Sección 3: Personal -->
+      <div class="seccion">
+        <h3 class="seccion-titulo">Personal</h3>
+        <div class="personal-grid">
+          <!-- Robot -->
+          <div class="personal-fila">
+            <span class="campo-label">Op. Robot / Bolter</span>
+            <mat-form-field appearance="outline" class="campo-nombre">
+              <mat-label>Apellidos y Nombres</mat-label>
+              <input matInput formControlName="opRobot">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="campo-numero">
+              <mat-label>N°</mat-label>
+              <input matInput formControlName="opRobotNum">
+            </mat-form-field>
+          </div>
+
+          <!-- Mixer/Ayudante -->
+          <div class="personal-fila">
+            <span class="campo-label">Op. Mixer / Ayudante</span>
+            <mat-form-field appearance="outline" class="campo-nombre">
+              <mat-label>Apellidos y Nombres</mat-label>
+              <input matInput formControlName="opMixerA">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="campo-numero">
+              <mat-label>N°</mat-label>
+              <input matInput formControlName="opMixerANum">
+            </mat-form-field>
+          </div>
+
+          <!-- Mixer -->
+          <div class="personal-fila">
+            <span class="campo-label">Op. Mixer</span>
+            <mat-form-field appearance="outline" class="campo-nombre">
+              <mat-label>Apellidos y Nombres</mat-label>
+              <input matInput formControlName="opMixer">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="campo-numero">
+              <mat-label>N°</mat-label>
+              <input matInput formControlName="opMixerNum">
+            </mat-form-field>
+          </div>
+
+          <!-- Supervisor -->
+          <div class="personal-fila">
+            <span class="campo-label">Supervisor</span>
+            <mat-form-field appearance="outline" class="campo-nombre">
+              <mat-label>Apellidos y Nombres</mat-label>
+              <input matInput formControlName="supervisor">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="campo-numero">
+              <mat-label>N°</mat-label>
+              <input matInput formControlName="supervisorNum">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+     <!-- Sección 4: Condiciones de Labor -->
+<div class="seccion">
+  <h3 class="seccion-titulo">Condiciones de Labor</h3>
+
+  <!-- Condiciones Sí/No - DINÁMICAS desde los datos -->
+  <div class="condiciones-grid seccion-3-columnas">
+    <div class="condicion-item" *ngFor="let condicion of condicionesLabor; let i = index">
+      <span class="condicion-label">{{condicion.nombre}}</span>
+      <mat-radio-group 
+        [value]="getCondicionValor(condicion.nombre)"
+[disabled]="true">        
+        <mat-radio-button value="si">Sí</mat-radio-button>
+        <mat-radio-button value="no">No</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+  
+  <br>
+
+  <!-- Dimensiones (ancho, alto, largo) - se mantienen igual -->
+  <div class="condiciones-grid seccion-3-columnas">
+    <div class="condicion-item" *ngFor="let condicion of condicionesLaborM">
+      <mat-form-field appearance="outline" style="width:100%">
+        <mat-label>
+          <span class="condicion-label">{{condicion.nombre}}</span>
+        </mat-label>
+        <input matInput [formControlName]="condicion.control">
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+
+<!-- Sección 5: Tipo de sostenimiento - ACTUALIZADO -->
+<div class="seccion">
+  <h3 class="seccion-titulo">Tipo de Sostenimiento</h3>
+
+  <div class="sostenimiento-container">
+    <div
+      class="chip-sostenimiento"
+      *ngFor="let item of tipoSostenimiento; let i = index"
+      [class.activo]="item.activo"
+    >
+      {{ i + 1 }}. {{ item.nombre }}
+    </div>
+  </div>
+</div>
+
+      <!-- Sección 6: Calibradores / Perno -->
+
+      <div class="seccion">
+        <h3 class="seccion-titulo">Calibradores / Perno</h3>
+
+        <div class="grid-2">
+          <div *ngFor="let item of calibradoresPerno">
+            <mat-form-field appearance="outline" style="width:100%">
+              <mat-label>{{item.label}}</mat-label>
+              <input matInput [formControlName]="item.control">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección 6: Ejecutando -->
+      <div class="seccion">
+        <h3 class="seccion-titulo">Ejecutado</h3>
+
+        <div class="grid-ejecutado">
+          <div class="ejecutado-item" *ngFor="let item of ejecutado">
+            <mat-form-field appearance="outline" style="width:100%">
+              <mat-label>{{ item.label }}</mat-label>
+              <input matInput type="number" [formControlName]="item.control">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="acciones-form">
+          <button mat-raised-button class="btn-croquis" (click)="abrirCroquis()">
+            Croquis
+          </button>
+      </div>
+
+
+    </mat-card-content>
+  </mat-card>
+</div>

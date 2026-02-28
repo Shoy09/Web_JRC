@@ -30,9 +30,14 @@
 
       <div class="input-group">
         <mat-form-field appearance="outline">
-          <mat-label>Cargo</mat-label>
-          <input matInput formControlName="cargo">
-        </mat-form-field>
+  <mat-label>Cargo</mat-label>
+  <mat-select formControlName="cargo">
+    <mat-option *ngFor="let cargo of cargos" [value]="cargo">
+      {{ cargo }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
 
         <mat-form-field appearance="outline">
           <mat-label>Empresa</mat-label>

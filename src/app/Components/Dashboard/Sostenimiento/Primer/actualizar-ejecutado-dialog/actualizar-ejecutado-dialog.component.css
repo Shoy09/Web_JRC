@@ -1,0 +1,141 @@
+/* ===== AJUSTE CONTENEDOR DIALOG ===== */
+::ng-deep .mat-mdc-dialog-container {
+  padding: 0 !important;
+  border-radius: 18px !important;
+  overflow: hidden;
+}
+
+/* ===== CARD INTERNA (igual que form-card) ===== */
+.dialog-card {
+  border-radius: 18px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 
+    0 10px 40px rgba(0,0,0,.08),
+    0 2px 8px rgba(0,0,0,.05);
+  padding: 20px 25px 25px 25px;
+  transition: .35s;
+}
+
+/* ===== TITULO PRINCIPAL ===== */
+.dialog-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f5132;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ececec;
+  padding-bottom: 10px;
+}
+
+/* ===== SECCIONES ===== */
+.seccion {
+  margin-top: 22px;
+  padding: 18px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid #ededed;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+  transition: .25s;
+}
+
+.seccion:hover{
+  border: 1px solid #cde7d1;
+  box-shadow: 0 6px 18px rgba(46,125,50,.12);
+}
+
+/* ===== TITULOS DE SECCION ===== */
+.seccion-titulo {
+  color: #0f5132;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-left: 12px;
+  border-left: 5px solid #2e7d32;
+  letter-spacing: .4px;
+  position: relative;
+}
+
+.seccion-titulo::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:100%;
+  height:1px;
+  background: linear-gradient(90deg,#2e7d32,#dcdcdc);
+}
+
+/* ===== GRID EJECUTADO ===== */
+.grid-ejecutado {
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:14px;
+}
+
+/* ===== MATERIAL INPUT PRO ===== */
+::ng-deep .mat-mdc-form-field-appearance-outline .mdc-notched-outline {
+  border-color: #d6d6d6;
+}
+
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline {
+  border-color: #2e7d32 !important;
+}
+
+::ng-deep .mat-mdc-form-field-flex{
+  background: white;
+  border-radius: 8px;
+}
+
+/* ===== BOTONES ===== */
+.dialog-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e6e6e6;
+}
+
+button{
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  padding: 10px 22px !important;
+  letter-spacing: .4px;
+  transition: .3s;
+}
+
+/* BOTON GUARDAR */
+button.btn-guardar{
+  background: linear-gradient(135deg,#2e7d32,#0f5132);
+  color: white;
+  box-shadow: 0 8px 20px rgba(46,125,50,.35);
+}
+
+button.btn-guardar:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(46,125,50,.5);
+}
+
+/* BOTON CANCELAR */
+button.btn-cancelar{
+  background: #ffffff;
+  color: #1e700a;
+}
+
+button.btn-cancelar:hover{
+  background:#d5d7dc;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .grid-ejecutado{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-ejecutado{
+    grid-template-columns:1fr;
+  }
+}

@@ -1,0 +1,65 @@
+<div *ngIf="loading" class="loading">
+  Cargando registros...
+</div>
+
+<div class="cards-container" *ngIf="!loading">
+
+  <div
+  class="card"
+  *ngFor="let item of registros"
+  (click)="verDetalle(item)"
+>
+
+    <!-- HEADER -->
+    <div class="card-header">
+      <h3>Registro #{{ item.id }}</h3>
+
+      <span
+        class="estado"
+        [ngClass]="{
+          'estado-enviado': item.envio === 1,
+          'estado-pendiente': item.envio !== 1
+        }"
+      >
+        {{ item.envio === 1 ? 'Enviado' : 'Pendiente' }}
+      </span>
+    </div>
+
+    <!-- BODY -->
+    <div class="card-body">
+
+      <div class="row">
+        <span class="label">Fecha:</span>
+        <span>{{ item.fecha }}</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Turno:</span>
+        <span>{{ item.turno }}</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Labor:</span>
+        <span>{{ item.labor }}</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Empresa:</span>
+        <span>{{ item.empresa }}</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Supervisor:</span>
+        <span>{{ item.supervisor_nombre }}</span>
+      </div>
+
+      <div class="row">
+        <span class="label">Nivel:</span>
+        <span>{{ item.nivel }}</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

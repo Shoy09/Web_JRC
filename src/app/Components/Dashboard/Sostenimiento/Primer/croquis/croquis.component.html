@@ -1,0 +1,35 @@
+<div class="dialog-content">
+  <h2>Croquis de Labor</h2>
+
+  <div class="contenedor-croquis">
+    <!-- ÁREA DEL DIBUJO (CROQUIS) -->
+    <div class="panel">
+      <h4>Croquis</h4>
+      
+      <div class="imagen-container">
+        <img *ngIf="dibujoUrl" [src]="dibujoUrl" class="imagen-croquis" alt="Croquis" loading="lazy">
+        <div *ngIf="!dibujoUrl" class="sin-imagen">
+          <p>No hay croquis disponible</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ÁREA DE LA FOTO -->
+    <div class="panel">
+      <h4>Fotografía</h4>
+      
+      <div class="imagen-container">
+        <img *ngIf="fotoUrl" [src]="fotoUrl" class="imagen-croquis" alt="Fotografía" loading="lazy">
+        <div *ngIf="!fotoUrl" class="sin-imagen">
+          <p>No hay fotografía disponible</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acciones">
+    <button mat-raised-button color="primary" (click)="cerrar()">
+      <span>Cerrar</span>
+    </button>
+  </div>
+</div>

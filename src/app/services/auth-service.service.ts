@@ -29,6 +29,15 @@ getToken(): string | null {
   return localStorage.getItem('authToken'); // Ahora usa la clave correcta
 }
 
+getRol(): string | null {
+  return localStorage.getItem('rol');
+}
+
+// 🔥 Obtener nombre completo
+getNombreCompleto(): string | null {
+  return localStorage.getItem('nombre_completo');
+}
+
   
   // Método para verificar si el usuario está logueado
   isAuthenticated(): boolean {

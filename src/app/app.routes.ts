@@ -14,6 +14,14 @@ import { PlanMantenimientoListComponent } from './Components/Planes mensuales/Pl
 import { PrincipalComponentLanzador } from './Components/Dashboard/Servicios/Lanzador/principal/principal.component';
 import { PrincipalComponentMixer } from './Components/Dashboard/Servicios/Mixer/principal/principal.component';
 import { PrincipalComponentVolquetes } from './Components/Dashboard/Acarreo/principal/principal.component';
+import { SostenimientoComponent } from './Components/Crear datos/sostenimiento/sostenimiento.component';
+import { ListadoComponent1 } from './Components/Dashboard/Sostenimiento/Primer/listado/listado.component';
+import { ReporteComponent1 } from './Components/Dashboard/Sostenimiento/Primer/reporte/reporte.component';
+import { ListadoComponent2 } from './Components/Dashboard/Sostenimiento/Segundo/listado/listado.component';
+import { ReporteComponent2 } from './Components/Dashboard/Sostenimiento/Segundo/reporte/reporte.component';
+import { ReporteComponent3 } from './Components/Dashboard/Sostenimiento/Tercero/reporte/reporte.component';
+import { ListadoComponent3 } from './Components/Dashboard/Sostenimiento/Tercero/listado/listado.component';
+
 
 
 export const routes: Routes = [
@@ -36,6 +44,13 @@ export const routes: Routes = [
       { path: 'servicio-lanzador', component: PrincipalComponentLanzador },
       { path: 'servicio-mixer', component: PrincipalComponentMixer },
       { path: 'servicio-volquetes', component: PrincipalComponentVolquetes },
+      { path: 'data-sostenimiento', component: SostenimientoComponent },
+      { path: 'sostenimiento-1', component: ListadoComponent1 },
+      { path: 'sostenimiento-formulario-1', component: ReporteComponent1 },
+      { path: 'sostenimiento-2', component: ListadoComponent2 },
+      { path: 'sostenimiento-formulario-2', component: ReporteComponent2 },
+      { path: 'sostenimiento-3', component: ListadoComponent3 },
+      { path: 'sostenimiento-formulario-3', component: ReporteComponent3 },
 
     ]
   },

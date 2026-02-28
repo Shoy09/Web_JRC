@@ -1,0 +1,231 @@
+/* Variables para mantener consistencia */
+:host {
+  --color-primario: #1e3c72;
+  --color-secundario: #2a5298;
+  --color-acento: #3b7bbb;
+  --color-borde: #e9ecef;
+  --sombra-suave: 0 10px 30px rgba(0, 0, 0, 0.05);
+  --sombra-media: 0 15px 35px rgba(0, 0, 0, 0.1);
+  --borde-radio: 12px;
+}
+
+/* Contenedor principal con padding para separación de bordes */
+.dialog-content {
+  padding: 24px;
+  background-color: #f8fafc;
+  border-radius: 16px;
+}
+
+h2 {
+  margin: 0 0 24px 0;
+  color: #1e293b;
+  font-size: 1.8rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primario), var(--color-acento));
+  border-radius: 2px;
+}
+
+.contenedor-croquis {
+  display: flex;
+  gap: 28px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.panel {
+  flex: 1;
+  min-width: 320px;
+  background: white;
+  border-radius: var(--borde-radio);
+  padding: 20px;
+  box-shadow: var(--sombra-suave);
+  border: 1px solid var(--color-borde);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.panel:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-media);
+}
+
+.panel h4 {
+  margin: 0 0 16px 0;
+  color: #1e293b;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel h4::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 18px;
+  background: linear-gradient(135deg, var(--color-primario), var(--color-acento));
+  border-radius: 2px;
+}
+
+.imagen-container {
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  background: #f8fafc;
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Efecto de marco sutil */
+.imagen-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.imagen-croquis {
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.imagen-croquis:hover {
+  opacity: 0.95;
+}
+
+.sin-imagen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  color: #94a3b8;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+.sin-imagen::before {
+  content: '🖼️';
+  font-size: 3rem;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.sin-imagen p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.acciones {
+  margin-top: 28px;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-borde);
+}
+
+/* Estilo mejorado para el botón */
+::ng-deep .acciones button {
+  min-width: 120px;
+  height: 44px;
+  border-radius: 8px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+::ng-deep .acciones button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+::ng-deep .acciones button:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 6px rgba(50, 50, 93, 0.1);
+}
+
+/* Scroll personalizado para el diálogo */
+::ng-deep .mat-mdc-dialog-container {
+  --mdc-dialog-container-shape: 16px;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  border-radius: 16px !important;
+  overflow: hidden;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dialog-content {
+    padding: 16px;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .contenedor-croquis {
+    gap: 20px;
+  }
+  
+  .panel {
+    min-width: 280px;
+  }
+  
+  .imagen-container {
+    min-height: 280px;
+  }
+}
+
+/* Animación de carga suave */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.panel {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.panel:first-child {
+  animation-delay: 0.1s;
+}
+
+.panel:last-child {
+  animation-delay: 0.2s;
+}

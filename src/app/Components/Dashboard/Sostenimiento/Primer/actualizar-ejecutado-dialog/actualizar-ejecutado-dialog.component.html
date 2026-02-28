@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Actualizar Registro</h2>
+
+<mat-dialog-content [formGroup]="form">
+
+  <!-- Sección Ejecutado -->
+  <div class="seccion">
+    <h3 class="seccion-titulo">Ejecutado</h3>
+
+    <div class="grid-ejecutado">
+      <div class="ejecutado-item" *ngFor="let item of ejecutado">
+        <mat-form-field appearance="outline" style="width:100%">
+          <mat-label>{{ item.label }}</mat-label>
+          <input matInput type="number" [formControlName]="item.control">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección Observaciones -->
+  <div class="seccion">
+    <h3 class="seccion-titulo">Observaciones</h3>
+
+    <mat-form-field appearance="outline" style="width:100%">
+      <mat-label>Nueva Observación</mat-label>
+      <textarea 
+        matInput 
+        rows="4"
+        formControlName="observacionNueva">
+      </textarea>
+    </mat-form-field>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button class="btn-actualizar" (click)="confirmar()">
+      Actualizar
+    </button>
+</mat-dialog-actions>

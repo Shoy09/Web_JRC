@@ -1,0 +1,70 @@
+.loading {
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  padding: 18px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border-left: 6px solid #21899C;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.card-body .row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.label {
+  font-weight: 600;
+  color: #555;
+}
+
+/* Estados */
+.estado {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.estado-enviado {
+  background-color: #e6f7ee;
+  color: #1a7f37;
+}
+
+.estado-pendiente {
+  background-color: #fff4e5;
+  color: #b26a00;
+}
+
